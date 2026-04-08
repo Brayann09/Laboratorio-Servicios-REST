@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="20dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Gestión de Combustible"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:layout_marginBottom="20dp" />
+
+        <Button
+            android:id="@+id/btnHistoriaHU01"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="HistoriaRegistroHU01"
+            android:layout_marginBottom="20dp" />
+
+        <LinearLayout
+            android:id="@+id/layoutMenuHU01"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <Button
+                android:id="@+id/btnRegistrarCarga"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Registrar carga de combustible"
+                android:layout_marginBottom="10dp" />
+
+            <Button
+                android:id="@+id/btnCalcularCosto"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Calcular costo total"
+                android:layout_marginBottom="20dp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/layoutRegistrarCarga"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="gone"
+            android:layout_marginBottom="20dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Registrar carga de combustible"
+                android:textStyle="bold"
+                android:textSize="18sp"
+                android:layout_marginBottom="10dp" />
+
+            <EditText
+                android:id="@+id/etPlacaHU01"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Placa del vehículo" />
+
+            <EditText
+                android:id="@+id/etCantidadCombustible"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Cantidad de combustible"
+                android:inputType="numberDecimal" />
+
+            <EditText
+                android:id="@+id/etPrecioPorLitro"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Precio por litro o galón"
+                android:inputType="numberDecimal" />
+
+            <Button
+                android:id="@+id/btnGuardarCarga"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Guardar carga"
+                android:layout_marginTop="10dp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/layoutCalcularCosto"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="gone"
+            android:layout_marginBottom="20dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Calcular costo total"
+                android:textStyle="bold"
+                android:textSize="18sp"
+                android:layout_marginBottom="10dp" />
+
+            <Button
+                android:id="@+id/btnCalcularTotal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Calcular total" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tvResultadoHU01"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Aquí se mostrarán los resultados de la HU01."
+            android:textSize="16sp"
+            android:layout_marginTop="20dp" />
+
+    </LinearLayout>
+</ScrollView>

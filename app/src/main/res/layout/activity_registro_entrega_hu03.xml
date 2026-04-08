@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="24dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="HU03 - Registro de Entregas"
+            android:textSize="22sp"
+            android:textStyle="bold"
+            android:layout_marginBottom="20dp" />
+
+        <EditText
+            android:id="@+id/etVehiculo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Vehículo" />
+
+        <EditText
+            android:id="@+id/etVolumen"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Volumen"
+            android:inputType="numberDecimal"
+            android:layout_marginTop="12dp" />
+
+        <EditText
+            android:id="@+id/etEstacionDestino"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Estación destino"
+            android:layout_marginTop="12dp" />
+
+        <Button
+            android:id="@+id/btnGuardarEntrega"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Guardar Entrega"
+            android:layout_marginTop="20dp" />
+
+    </LinearLayout>
+</ScrollView>

@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="20dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Gestión de Combustible"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:layout_marginBottom="20dp" />
+
+        <Button
+            android:id="@+id/btnHistoriaHU06"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="HistoriaConfiguracionHU06"
+            android:layout_marginBottom="20dp" />
+
+        <LinearLayout
+            android:id="@+id/layoutMenuPrincipal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <Button
+                android:id="@+id/btnGestionUsuarios"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Gestionar usuarios"
+                android:layout_marginBottom="10dp" />
+
+            <Button
+                android:id="@+id/btnAsignarRoles"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Asignar roles y permisos"
+                android:layout_marginBottom="20dp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/layoutGestionUsuarios"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="gone"
+            android:layout_marginBottom="20dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Gestión de usuarios"
+                android:textStyle="bold"
+                android:textSize="18sp"
+                android:layout_marginBottom="10dp" />
+
+            <EditText
+                android:id="@+id/etIdUsuario"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="ID usuario"
+                android:inputType="number" />
+
+            <EditText
+                android:id="@+id/etNombreUsuario"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Nombre usuario" />
+
+            <EditText
+                android:id="@+id/etCorreoUsuario"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Correo usuario"
+                android:inputType="textEmailAddress" />
+
+            <Button
+                android:id="@+id/btnCrearUsuario"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Crear usuario"
+                android:layout_marginTop="10dp" />
+
+            <Button
+                android:id="@+id/btnEditarUsuario"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Editar usuario"
+                android:layout_marginTop="8dp" />
+
+            <Button
+                android:id="@+id/btnEliminarUsuario"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Eliminar usuario"
+                android:layout_marginTop="8dp" />
+
+            <Button
+                android:id="@+id/btnListarUsuarios"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Listar usuarios"
+                android:layout_marginTop="8dp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/layoutRolesPermisos"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="gone"
+            android:layout_marginBottom="20dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Asignar roles y permisos"
+                android:textStyle="bold"
+                android:textSize="18sp"
+                android:layout_marginBottom="10dp" />
+
+            <EditText
+                android:id="@+id/etIdRol"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="ID usuario para rol/permisos"
+                android:inputType="number" />
+
+            <Spinner
+                android:id="@+id/spinnerRoles"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp" />
+
+            <Spinner
+                android:id="@+id/spinnerPermisos"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp" />
+
+            <Button
+                android:id="@+id/btnAsignarRol"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Asignar rol"
+                android:layout_marginTop="10dp" />
+
+            <Button
+                android:id="@+id/btnConsultarPermisos"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Consultar permisos"
+                android:layout_marginTop="8dp" />
+
+            <Button
+                android:id="@+id/btnValidarAcceso"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Validar acceso según rol"
+                android:layout_marginTop="8dp" />
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tvResultado"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Aquí se mostrarán los resultados."
+            android:textSize="16sp"
+            android:layout_marginTop="20dp" />
+
+    </LinearLayout>
+</ScrollView>

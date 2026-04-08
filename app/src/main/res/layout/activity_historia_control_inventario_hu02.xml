@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="20dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Gestión de Combustible"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:layout_marginBottom="20dp" />
+
+        <Button
+            android:id="@+id/btnHistoriaHU02"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="HistoriaControlInventarioHU02"
+            android:layout_marginBottom="20dp" />
+
+        <LinearLayout
+            android:id="@+id/layoutMenuHU02"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <Button
+                android:id="@+id/btnConsultarExistencias"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Consultar existencias actuales"
+                android:layout_marginBottom="10dp" />
+
+            <Button
+                android:id="@+id/btnActualizarInventario"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Actualizar inventario por ingreso o salida"
+                android:layout_marginBottom="10dp" />
+
+            <Button
+                android:id="@+id/btnGenerarAlertas"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Generar alertas por nivel bajo"
+                android:layout_marginBottom="10dp" />
+
+            <Button
+                android:id="@+id/btnRegistrarIngresoCompra"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Registrar ingresos por compra"
+                android:layout_marginBottom="10dp" />
+
+            <Button
+                android:id="@+id/btnConsultarHistorico"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Consultar histórico de movimientos"
+                android:layout_marginBottom="20dp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/layoutExistencias"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="gone"
+            android:layout_marginBottom="20dp">
+
+            <Button
+                android:id="@+id/btnVerExistencias"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Ver existencias actuales" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/layoutActualizarInventario"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="gone"
+            android:layout_marginBottom="20dp">
+
+            <Spinner
+                android:id="@+id/spinnerTipoCombustible"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <Spinner
+                android:id="@+id/spinnerMovimiento"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp" />
+
+            <EditText
+                android:id="@+id/etCantidadMovimiento"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Cantidad del movimiento"
+                android:inputType="numberDecimal"
+                android:layout_marginTop="10dp" />
+
+            <Button
+                android:id="@+id/btnActualizar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Actualizar inventario"
+                android:layout_marginTop="10dp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/layoutAlertas"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="gone"
+            android:layout_marginBottom="20dp">
+
+            <EditText
+                android:id="@+id/etNivelMinimo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Nivel mínimo"
+                android:inputType="numberDecimal" />
+
+            <Button
+                android:id="@+id/btnVerAlerta"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Generar alerta"
+                android:layout_marginTop="10dp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/layoutIngresosCompra"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="gone"
+            android:layout_marginBottom="20dp">
+
+            <EditText
+                android:id="@+id/etCantidadCompra"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Cantidad comprada"
+                android:inputType="numberDecimal" />
+
+            <Button
+                android:id="@+id/btnRegistrarCompra"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Registrar compra"
+                android:layout_marginTop="10dp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/layoutHistorico"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="gone"
+            android:layout_marginBottom="20dp">
+
+            <Button
+                android:id="@+id/btnVerHistorico"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Ver histórico de movimientos" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tvResultadoHU02"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Aquí se mostrarán los resultados de la HU02."
+            android:textSize="16sp"
+            android:layout_marginTop="20dp" />
+
+    </LinearLayout>
+</ScrollView>
