@@ -36,7 +36,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:columnCount="2"
-            android:rowCount="3">
+            android:rowCount="4">
 
             <!-- ADMIN FLOTA -->
             <LinearLayout
@@ -123,6 +123,36 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Distribuidor mayorista"
+                    android:textStyle="bold"
+                    android:textColor="#263238"
+                    android:gravity="center" />
+            </LinearLayout>
+
+            <!-- GERENTE -->
+            <LinearLayout
+                android:id="@+id/btnGerente"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_columnWeight="1"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:padding="12dp"
+                android:layout_margin="8dp"
+                android:background="#FFFFFF"
+                android:clickable="true"
+                android:focusable="true">
+
+                <ImageView
+                    android:layout_width="200dp"
+                    android:layout_height="200dp"
+                    android:src="@drawable/gerente"
+                    android:scaleType="fitCenter"
+                    android:layout_marginBottom="8dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Gerente operativo"
                     android:textStyle="bold"
                     android:textColor="#263238"
                     android:gravity="center" />
@@ -218,7 +248,69 @@
                     android:gravity="center" />
             </LinearLayout>
 
+            <!-- ESTACION SERVICIO -->
+            <LinearLayout
+                android:id="@+id/btnEstacionServicio"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_columnWeight="1"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:padding="12dp"
+                android:layout_margin="8dp"
+                android:background="#FFFFFF"
+                android:clickable="true"
+                android:focusable="true">
+
+                <ImageView
+                    android:layout_width="200dp"
+                    android:layout_height="200dp"
+                    android:src="@drawable/estacion_servicio"
+                    android:scaleType="fitCenter"
+                    android:layout_marginBottom="8dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Estación servicio"
+                    android:textStyle="bold"
+                    android:textColor="#263238"
+                    android:gravity="center" />
+            </LinearLayout>
+
+            <!-- LABORATORIO REST -->
+            <LinearLayout
+                android:id="@+id/btnRest"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_columnWeight="1"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:padding="12dp"
+                android:layout_margin="8dp"
+                android:background="#FFFFFF"
+                android:clickable="true"
+                android:focusable="true">
+
+                <ImageView
+                    android:layout_width="200dp"
+                    android:layout_height="200dp"
+                    android:src="@drawable/rest_api"
+                    android:scaleType="fitCenter"
+                    android:layout_marginBottom="8dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Laboratorio REST"
+                    android:textStyle="bold"
+                    android:textColor="#263238"
+                    android:gravity="center" />
+
+            </LinearLayout>
+
         </GridLayout>
 
     </LinearLayout>
+
 </ScrollView>
