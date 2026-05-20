@@ -10,42 +10,47 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.room.Room;
 
 import com.example.gestioncombustible.R;
+import com.example.gestioncombustible.data.database.AppDatabase;
+import com.example.gestioncombustible.data.entity.Usuario;
+import com.example.gestioncombustible.data.entity.Estacion;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public class HistoriaConfiguracionHU06 extends AppCompatActivity {
 
-    private Button btnHistoriaHU06;
-    private Button btnGestionUsuarios;
-    private Button btnAsignarRoles;
+    // BOTONES PRINCIPALES
+    private Button btnHistoriaHU06, btnGestionUsuarios, btnAsignarRoles;
 
-    private Button btnCrearUsuario;
-    private Button btnEditarUsuario;
-    private Button btnEliminarUsuario;
-    private Button btnListarUsuarios;
+    // BOTONES GESTION USUARIOS
+    private Button btnCrearUsuario, btnEditarUsuario,
+            btnEliminarUsuario, btnListarUsuarios;
 
-    private Button btnAsignarRol;
-    private Button btnConsultarPermisos;
-    private Button btnValidarAcceso;
+    // BOTONES ROLES
+    private Button btnAsignarRol, btnConsultarPermisos,
+            btnValidarAcceso;
 
-    private EditText etIdUsuario;
-    private EditText etNombreUsuario;
-    private EditText etCorreoUsuario;
-    private EditText etIdRol;
+    // CAMPOS TEXTO
+    private EditText etIdUsuario, etNombreUsuario,
+            etCorreoUsuario, etIdRol;
 
-    private Spinner spinnerRoles;
-    private Spinner spinnerPermisos;
+    // SPINNERS
+    private Spinner spinnerRoles, spinnerPermisos;
 
+    // RESULTADOS
     private TextView tvResultado;
 
-    private View layoutMenuPrincipal;
-    private View layoutGestionUsuarios;
-    private View layoutRolesPermisos;
+    // LAYOUTS
+    private View layoutMenuPrincipal,
+            layoutGestionUsuarios,
+            layoutRolesPermisos;
 
-    private final ArrayList<Usuario> listaUsuarios = new ArrayList<>();
+    // BASE DE DATOS
+    private AppDatabase db;
 
+    // ROLES DISPONIBLES
     private final String[] roles = {
             "Administrador",
             "Cajero",
@@ -53,6 +58,7 @@ public class HistoriaConfiguracionHU06 extends AppCompatActivity {
             "Operario"
     };
 
+    // PERMISOS DISPONIBLES
     private final String[] permisos = {
             "Crear usuarios",
             "Editar usuarios",
@@ -68,355 +74,317 @@ public class HistoriaConfiguracionHU06 extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_historia_configuracion_hu06);
 
+        // INICIALIZAR BASE DATOS
+        db = Room.databaseBuilder(
+                        getApplicationContext(),
+                        AppDatabase.class,
+                        "combustible_db"
+                )
+                .fallbackToDestructiveMigration()
+                .allowMainThreadQueries()
+                .build();
+
+        // CREAR ESTACIONES INICIALES
+        crearEstacionesIniciales();
+
+        // BOTONES PRINCIPALES
         btnHistoriaHU06 = findViewById(R.id.btnHistoriaHU06);
         btnGestionUsuarios = findViewById(R.id.btnGestionUsuarios);
         btnAsignarRoles = findViewById(R.id.btnAsignarRoles);
 
+        // BOTONES GESTION USUARIOS
         btnCrearUsuario = findViewById(R.id.btnCrearUsuario);
         btnEditarUsuario = findViewById(R.id.btnEditarUsuario);
         btnEliminarUsuario = findViewById(R.id.btnEliminarUsuario);
         btnListarUsuarios = findViewById(R.id.btnListarUsuarios);
 
+        // BOTONES ROLES
         btnAsignarRol = findViewById(R.id.btnAsignarRol);
         btnConsultarPermisos = findViewById(R.id.btnConsultarPermisos);
         btnValidarAcceso = findViewById(R.id.btnValidarAcceso);
 
+        // CAMPOS TEXTO
         etIdUsuario = findViewById(R.id.etIdUsuario);
         etNombreUsuario = findViewById(R.id.etNombreUsuario);
         etCorreoUsuario = findViewById(R.id.etCorreoUsuario);
         etIdRol = findViewById(R.id.etIdRol);
 
+        // SPINNERS
         spinnerRoles = findViewById(R.id.spinnerRoles);
         spinnerPermisos = findViewById(R.id.spinnerPermisos);
 
+        // TEXTVIEW RESULTADO
         tvResultado = findViewById(R.id.tvResultado);
 
+        // LAYOUTS
         layoutMenuPrincipal = findViewById(R.id.layoutMenuPrincipal);
         layoutGestionUsuarios = findViewById(R.id.layoutGestionUsuarios);
         layoutRolesPermisos = findViewById(R.id.layoutRolesPermisos);
 
-        ArrayAdapter<String> adapterRoles = new ArrayAdapter<>(
-                this,
-                android.R.layout.simple_spinner_item,
-                roles
+        // CONFIGURAR SPINNERS
+        spinnerRoles.setAdapter(
+                new ArrayAdapter<>(
+                        this,
+                        android.R.layout.simple_spinner_item,
+                        roles
+                )
         );
-        adapterRoles.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinnerRoles.setAdapter(adapterRoles);
 
-        ArrayAdapter<String> adapterPermisos = new ArrayAdapter<>(
-                this,
-                android.R.layout.simple_spinner_item,
-                permisos
+        spinnerPermisos.setAdapter(
+                new ArrayAdapter<>(
+                        this,
+                        android.R.layout.simple_spinner_item,
+                        permisos
+                )
         );
-        adapterPermisos.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinnerPermisos.setAdapter(adapterPermisos);
 
+        // OCULTAR LAYOUTS
         layoutMenuPrincipal.setVisibility(View.GONE);
         layoutGestionUsuarios.setVisibility(View.GONE);
         layoutRolesPermisos.setVisibility(View.GONE);
 
+        // MOSTRAR MENU PRINCIPAL
         btnHistoriaHU06.setOnClickListener(v -> {
+
             btnHistoriaHU06.setVisibility(View.GONE);
+
             layoutMenuPrincipal.setVisibility(View.VISIBLE);
-            tvResultado.setText("Seleccione una opción de la historia.");
         });
 
+        // MOSTRAR GESTION USUARIOS
         btnGestionUsuarios.setOnClickListener(v -> {
+
             layoutGestionUsuarios.setVisibility(View.VISIBLE);
+
             layoutRolesPermisos.setVisibility(View.GONE);
-            tvResultado.setText("Módulo de gestión de usuarios activo.");
         });
 
+        // MOSTRAR ROLES Y PERMISOS
         btnAsignarRoles.setOnClickListener(v -> {
+
             layoutRolesPermisos.setVisibility(View.VISIBLE);
+
             layoutGestionUsuarios.setVisibility(View.GONE);
-            tvResultado.setText("Módulo de roles y permisos activo.");
         });
 
+        // BOTONES CRUD USUARIOS
         btnCrearUsuario.setOnClickListener(v -> crearUsuario());
+
         btnEditarUsuario.setOnClickListener(v -> editarUsuario());
+
         btnEliminarUsuario.setOnClickListener(v -> eliminarUsuario());
+
         btnListarUsuarios.setOnClickListener(v -> listarUsuarios());
 
+        // BOTONES ROLES
         btnAsignarRol.setOnClickListener(v -> asignarRol());
+
         btnConsultarPermisos.setOnClickListener(v -> consultarPermisos());
+
         btnValidarAcceso.setOnClickListener(v -> validarAcceso());
     }
 
+    // CREAR ESTACIONES INICIALES
+    private void crearEstacionesIniciales() {
+
+        // Verificar si ya existen estaciones
+        if (db.estacionDao().obtenerTodas().isEmpty()) {
+
+            // ESTACION NORTE
+            Estacion norte = new Estacion();
+
+            norte.setNombre("Estacion Norte");
+            norte.setZona("Bogota");
+
+            norte.setInventarioCorriente(5000);
+            norte.setInventarioAcpm(3000);
+
+            norte.setPrecioCorriente(15000);
+            norte.setPrecioAcpm(17000);
+
+            db.estacionDao().insertar(norte);
+
+            // ESTACION SUR
+            Estacion sur = new Estacion();
+
+            sur.setNombre("Estacion Sur");
+            sur.setZona("Cali");
+
+            sur.setInventarioCorriente(4000);
+            sur.setInventarioAcpm(2500);
+
+            sur.setPrecioCorriente(14800);
+            sur.setPrecioAcpm(16800);
+
+            db.estacionDao().insertar(sur);
+
+            // ESTACION CENTRO
+            Estacion centro = new Estacion();
+
+            centro.setNombre("Estacion Centro");
+            centro.setZona("Medellin");
+
+            centro.setInventarioCorriente(7000);
+            centro.setInventarioAcpm(5000);
+
+            centro.setPrecioCorriente(15200);
+            centro.setPrecioAcpm(17200);
+
+            db.estacionDao().insertar(centro);
+
+            mostrarMensaje("Estaciones creadas");
+        }
+    }
+
+    // CREAR USUARIO
     private void crearUsuario() {
-        String idTexto = etIdUsuario.getText().toString().trim();
-        String nombre = etNombreUsuario.getText().toString().trim();
-        String correo = etCorreoUsuario.getText().toString().trim();
 
-        if (idTexto.isEmpty() || nombre.isEmpty() || correo.isEmpty()) {
-            mostrarMensaje("Complete ID, nombre y correo para crear el usuario");
+        int id = Integer.parseInt(etIdUsuario.getText().toString());
+
+        String nombre = etNombreUsuario.getText().toString();
+
+        String correo = etCorreoUsuario.getText().toString();
+
+        // Verificar si existe
+        if (db.usuarioDao().buscarPorId(id) != null) {
+
+            mostrarMensaje("Ya existe usuario");
+
             return;
         }
 
-        int id = Integer.parseInt(idTexto);
+        Usuario u = new Usuario();
 
-        if (buscarUsuarioPorId(id) != null) {
-            mostrarMensaje("Ya existe un usuario con ese ID");
-            return;
-        }
+        u.id = id;
+        u.nombre = nombre;
+        u.correo = correo;
+        u.rol = "Sin rol";
 
-        Usuario usuario = new Usuario(id, nombre, correo, "Sin rol");
-        listaUsuarios.add(usuario);
+        db.usuarioDao().insertar(u);
 
-        limpiarCamposUsuario();
-        tvResultado.setText("Ya se creó el usuario:\n\nID: " + id + "\nNombre: " + nombre + "\nCorreo: " + correo + "\nRol: Sin rol");
-        mostrarMensaje("Ya se creó el usuario");
+        mostrarMensaje("Usuario creado");
     }
 
+    // EDITAR USUARIO
     private void editarUsuario() {
-        String idTexto = etIdUsuario.getText().toString().trim();
-        String nombre = etNombreUsuario.getText().toString().trim();
-        String correo = etCorreoUsuario.getText().toString().trim();
 
-        if (idTexto.isEmpty() || nombre.isEmpty() || correo.isEmpty()) {
-            mostrarMensaje("Complete ID, nombre y correo para editar el usuario");
+        int id = Integer.parseInt(etIdUsuario.getText().toString());
+
+        Usuario u = db.usuarioDao().buscarPorId(id);
+
+        if (u == null) {
+
+            mostrarMensaje("No existe");
+
             return;
         }
 
-        int id = Integer.parseInt(idTexto);
-        Usuario usuario = buscarUsuarioPorId(id);
+        u.nombre = etNombreUsuario.getText().toString();
 
-        if (usuario == null) {
-            mostrarMensaje("No existe un usuario con ese ID");
-            return;
-        }
+        u.correo = etCorreoUsuario.getText().toString();
 
-        usuario.setNombre(nombre);
-        usuario.setCorreo(correo);
+        db.usuarioDao().actualizar(u);
 
-        limpiarCamposUsuario();
-        tvResultado.setText("Ya se editó el usuario:\n\nID: " + usuario.getId() + "\nNombre: " + usuario.getNombre() + "\nCorreo: " + usuario.getCorreo() + "\nRol: " + usuario.getRol());
-        mostrarMensaje("Ya se editó el usuario");
+        mostrarMensaje("Usuario actualizado");
     }
 
+    // ELIMINAR USUARIO
     private void eliminarUsuario() {
-        String idTexto = etIdUsuario.getText().toString().trim();
 
-        if (idTexto.isEmpty()) {
-            mostrarMensaje("Ingrese el ID para eliminar el usuario");
+        int id = Integer.parseInt(etIdUsuario.getText().toString());
+
+        Usuario u = db.usuarioDao().buscarPorId(id);
+
+        if (u == null) {
+
+            mostrarMensaje("No existe");
+
             return;
         }
 
-        int id = Integer.parseInt(idTexto);
-        Usuario usuario = buscarUsuarioPorId(id);
+        db.usuarioDao().eliminar(u);
 
-        if (usuario == null) {
-            mostrarMensaje("No existe un usuario con ese ID");
-            return;
-        }
-
-        listaUsuarios.remove(usuario);
-
-        limpiarCamposUsuario();
-        tvResultado.setText("Ya se eliminó el usuario con ID: " + id);
-        mostrarMensaje("Ya se eliminó el usuario");
+        mostrarMensaje("Usuario eliminado");
     }
 
+    // LISTAR USUARIOS
     private void listarUsuarios() {
-        if (listaUsuarios.isEmpty()) {
-            tvResultado.setText("No hay usuarios registrados.");
-            mostrarMensaje("No hay usuarios para listar");
-            return;
+
+        List<Usuario> lista = db.usuarioDao().obtenerTodos();
+
+        String texto = "Usuarios:\n\n";
+
+        for (Usuario u : lista) {
+
+            texto += "ID: " + u.id +
+                    "\nNombre: " + u.nombre +
+                    "\nCorreo: " + u.correo +
+                    "\nRol: " + u.rol +
+                    "\n-----------------\n";
         }
 
-        StringBuilder texto = new StringBuilder();
-        texto.append("Lista de usuarios:\n\n");
-
-        for (Usuario usuario : listaUsuarios) {
-            texto.append("ID: ").append(usuario.getId()).append("\n");
-            texto.append("Nombre: ").append(usuario.getNombre()).append("\n");
-            texto.append("Correo: ").append(usuario.getCorreo()).append("\n");
-            texto.append("Rol: ").append(usuario.getRol()).append("\n");
-            texto.append("-------------------------\n");
-        }
-
-        tvResultado.setText(texto.toString());
-        mostrarMensaje("Ya se listaron los usuarios");
+        tvResultado.setText(texto);
     }
 
+    // ASIGNAR ROL
     private void asignarRol() {
-        String idTexto = etIdRol.getText().toString().trim();
 
-        if (idTexto.isEmpty()) {
-            mostrarMensaje("Ingrese el ID del usuario para asignar rol");
+        int id = Integer.parseInt(etIdRol.getText().toString());
+
+        Usuario u = db.usuarioDao().buscarPorId(id);
+
+        if (u == null) {
+
+            mostrarMensaje("No existe");
+
             return;
         }
 
-        int id = Integer.parseInt(idTexto);
-        Usuario usuario = buscarUsuarioPorId(id);
+        u.rol = spinnerRoles.getSelectedItem().toString();
 
-        if (usuario == null) {
-            mostrarMensaje("No existe un usuario con ese ID");
-            return;
-        }
+        db.usuarioDao().actualizar(u);
 
-        String rolSeleccionado = spinnerRoles.getSelectedItem().toString();
-        usuario.setRol(rolSeleccionado);
-
-        tvResultado.setText("Rol asignado correctamente:\n\nUsuario: " + usuario.getNombre() + "\nID: " + usuario.getId() + "\nRol: " + usuario.getRol());
-        mostrarMensaje("Rol asignado correctamente");
+        mostrarMensaje("Rol asignado");
     }
 
+    // CONSULTAR PERMISOS
     private void consultarPermisos() {
-        String idTexto = etIdRol.getText().toString().trim();
 
-        if (idTexto.isEmpty()) {
-            mostrarMensaje("Ingrese el ID del usuario para consultar permisos");
+        int id = Integer.parseInt(etIdRol.getText().toString());
+
+        Usuario u = db.usuarioDao().buscarPorId(id);
+
+        if (u == null) {
+
+            mostrarMensaje("No existe");
+
             return;
         }
 
-        int id = Integer.parseInt(idTexto);
-        Usuario usuario = buscarUsuarioPorId(id);
-
-        if (usuario == null) {
-            mostrarMensaje("No existe un usuario con ese ID");
-            return;
-        }
-
-        String permisosRol = obtenerPermisosPorRol(usuario.getRol());
-
-        tvResultado.setText("Consulta de permisos:\n\nUsuario: " + usuario.getNombre() + "\nRol: " + usuario.getRol() + "\n\nPermisos:\n" + permisosRol);
-        mostrarMensaje("Permisos consultados correctamente");
+        tvResultado.setText(
+                "Usuario: " + u.nombre +
+                        "\nRol: " + u.rol
+        );
     }
 
+    // VALIDAR ACCESO
     private void validarAcceso() {
-        String idTexto = etIdRol.getText().toString().trim();
 
-        if (idTexto.isEmpty()) {
-            mostrarMensaje("Ingrese el ID del usuario para validar acceso");
-            return;
-        }
-
-        int id = Integer.parseInt(idTexto);
-        Usuario usuario = buscarUsuarioPorId(id);
-
-        if (usuario == null) {
-            mostrarMensaje("No existe un usuario con ese ID");
-            return;
-        }
-
-        String permisoSeleccionado = spinnerPermisos.getSelectedItem().toString();
-        boolean tieneAcceso = tienePermiso(usuario.getRol(), permisoSeleccionado);
-
-        if (tieneAcceso) {
-            tvResultado.setText("Validación de acceso:\n\nUsuario: " + usuario.getNombre() + "\nRol: " + usuario.getRol() + "\nPermiso consultado: " + permisoSeleccionado + "\n\nResultado: ACCESO PERMITIDO");
-            mostrarMensaje("Acceso permitido según rol");
-        } else {
-            tvResultado.setText("Validación de acceso:\n\nUsuario: " + usuario.getNombre() + "\nRol: " + usuario.getRol() + "\nPermiso consultado: " + permisoSeleccionado + "\n\nResultado: ACCESO DENEGADO");
-            mostrarMensaje("Acceso denegado según rol");
-        }
+        mostrarMensaje("Funcionalidad simplificada");
     }
 
-    private Usuario buscarUsuarioPorId(int id) {
-        for (Usuario usuario : listaUsuarios) {
-            if (usuario.getId() == id) {
-                return usuario;
-            }
-        }
-        return null;
-    }
-
-    private String obtenerPermisosPorRol(String rol) {
-        switch (rol) {
-            case "Administrador":
-                return "- Crear usuarios\n- Editar usuarios\n- Eliminar usuarios\n- Listar usuarios\n- Asignar rol\n- Consultar permisos\n- Validar acceso\n- Ver reportes";
-            case "Cajero":
-                return "- Listar usuarios\n- Registrar ventas";
-            case "Supervisor":
-                return "- Listar usuarios\n- Consultar permisos\n- Ver reportes";
-            case "Operario":
-                return "- Despachar combustible";
-            default:
-                return "- Este usuario no tiene rol asignado";
-        }
-    }
-
-    private boolean tienePermiso(String rol, String permiso) {
-        switch (rol) {
-            case "Administrador":
-                return permiso.equals("Crear usuarios")
-                        || permiso.equals("Editar usuarios")
-                        || permiso.equals("Eliminar usuarios")
-                        || permiso.equals("Listar usuarios")
-                        || permiso.equals("Asignar rol")
-                        || permiso.equals("Consultar permisos")
-                        || permiso.equals("Validar acceso")
-                        || permiso.equals("Ver reportes");
-
-            case "Cajero":
-                return permiso.equals("Listar usuarios")
-                        || permiso.equals("Registrar ventas");
-
-            case "Supervisor":
-                return permiso.equals("Listar usuarios")
-                        || permiso.equals("Consultar permisos")
-                        || permiso.equals("Ver reportes");
-
-            case "Operario":
-                return permiso.equals("Despachar combustible");
-
-            default:
-                return false;
-        }
-    }
-
-    private void limpiarCamposUsuario() {
-        etIdUsuario.setText("");
-        etNombreUsuario.setText("");
-        etCorreoUsuario.setText("");
-    }
-
+    // MOSTRAR MENSAJES
     private void mostrarMensaje(String mensaje) {
-        Toast.makeText(this, mensaje, Toast.LENGTH_SHORT).show();
-    }
 
-    private static class Usuario {
-        private int id;
-        private String nombre;
-        private String correo;
-        private String rol;
-
-        public Usuario(int id, String nombre, String correo, String rol) {
-            this.id = id;
-            this.nombre = nombre;
-            this.correo = correo;
-            this.rol = rol;
-        }
-
-        public int getId() {
-            return id;
-        }
-
-        public String getNombre() {
-            return nombre;
-        }
-
-        public String getCorreo() {
-            return correo;
-        }
-
-        public String getRol() {
-            return rol;
-        }
-
-        public void setNombre(String nombre) {
-            this.nombre = nombre;
-        }
-
-        public void setCorreo(String correo) {
-            this.correo = correo;
-        }
-
-        public void setRol(String rol) {
-            this.rol = rol;
-        }
+        Toast.makeText(
+                this,
+                mensaje,
+                Toast.LENGTH_SHORT
+        ).show();
     }
 }

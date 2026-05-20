@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -9,6 +10,7 @@
         android:orientation="vertical"
         android:padding="20dp">
 
+        <!-- TITULO -->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -17,6 +19,7 @@
             android:textStyle="bold"
             android:layout_marginBottom="20dp" />
 
+        <!-- BOTON HISTORIA -->
         <Button
             android:id="@+id/btnHistoriaHU01"
             android:layout_width="match_parent"
@@ -24,6 +27,7 @@
             android:text="HistoriaRegistroHU01"
             android:layout_marginBottom="20dp" />
 
+        <!-- MENU PRINCIPAL -->
         <LinearLayout
             android:id="@+id/layoutMenuHU01"
             android:layout_width="match_parent"
@@ -46,6 +50,7 @@
                 android:layout_marginBottom="20dp" />
         </LinearLayout>
 
+        <!-- REGISTRAR CARGA -->
         <LinearLayout
             android:id="@+id/layoutRegistrarCarga"
             android:layout_width="match_parent"
@@ -62,12 +67,14 @@
                 android:textSize="18sp"
                 android:layout_marginBottom="10dp" />
 
+            <!-- PLACA -->
             <EditText
                 android:id="@+id/etPlacaHU01"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Placa del vehículo" />
 
+            <!-- CANTIDAD -->
             <EditText
                 android:id="@+id/etCantidadCombustible"
                 android:layout_width="match_parent"
@@ -75,6 +82,7 @@
                 android:hint="Cantidad de combustible"
                 android:inputType="numberDecimal" />
 
+            <!-- PRECIO -->
             <EditText
                 android:id="@+id/etPrecioPorLitro"
                 android:layout_width="match_parent"
@@ -82,6 +90,28 @@
                 android:hint="Precio por litro o galón"
                 android:inputType="numberDecimal" />
 
+            <!-- ESTACIONES -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Seleccione estación"
+                android:textStyle="bold"
+                android:layout_marginTop="10dp" />
+
+            <Spinner
+                android:id="@+id/spinnerEstacionesHU01"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <!-- SUBSIDIO -->
+            <CheckBox
+                android:id="@+id/checkSubsidioHU01"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Aplicar subsidio"
+                android:layout_marginTop="10dp" />
+
+            <!-- BOTON GUARDAR -->
             <Button
                 android:id="@+id/btnGuardarCarga"
                 android:layout_width="match_parent"
@@ -90,6 +120,7 @@
                 android:layout_marginTop="10dp" />
         </LinearLayout>
 
+        <!-- CALCULAR COSTO -->
         <LinearLayout
             android:id="@+id/layoutCalcularCosto"
             android:layout_width="match_parent"
@@ -113,6 +144,7 @@
                 android:text="Calcular total" />
         </LinearLayout>
 
+        <!-- RESULTADOS -->
         <TextView
             android:id="@+id/tvResultadoHU01"
             android:layout_width="match_parent"
@@ -122,4 +154,5 @@
             android:layout_marginTop="20dp" />
 
     </LinearLayout>
+
 </ScrollView>

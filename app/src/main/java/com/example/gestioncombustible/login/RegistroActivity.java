@@ -49,7 +49,7 @@ public class RegistroActivity extends AppCompatActivity {
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
 
         // Spinner Roles
-        String[] roles = {"Comprador", "Estación de servicio", "Distribuidor"};
+        String[] roles = {"Comprador", "Estación de servicio", "Distribuidor","Admin Flota","Admin Sistema","Almacen","Analista","Gerente"};
 
         ArrayAdapter<String> adapter = new ArrayAdapter<>(
                 this,

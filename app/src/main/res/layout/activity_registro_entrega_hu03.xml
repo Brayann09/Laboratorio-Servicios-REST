@@ -9,6 +9,7 @@
         android:orientation="vertical"
         android:padding="24dp">
 
+        <!-- Título -->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -17,27 +18,115 @@
             android:textStyle="bold"
             android:layout_marginBottom="20dp" />
 
+        <!-- Refinería origen -->
+        <EditText
+            android:id="@+id/etOrigen"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Refinería Barrancabermeja - Ecopetrol"
+            android:enabled="false" />
+
+        <!-- Coordenadas origen -->
+        <TextView
+            android:id="@+id/txtOrigenCoords"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Lat: 7.0722 | Lng: -73.8783"
+            android:layout_marginTop="8dp" />
+
+        <!-- Vehículo -->
         <EditText
             android:id="@+id/etVehiculo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Vehículo" />
+            android:hint="Vehículo distribuidor"
+            android:layout_marginTop="12dp" />
 
+        <!-- Volumen -->
         <EditText
             android:id="@+id/etVolumen"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Volumen"
+            android:hint="Volumen de combustible"
             android:inputType="numberDecimal"
             android:layout_marginTop="12dp" />
 
-        <EditText
-            android:id="@+id/etEstacionDestino"
+        <!-- Selector estaciones -->
+        <Spinner
+            android:id="@+id/spinnerEstaciones"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Estación destino"
             android:layout_marginTop="12dp" />
 
+        <!-- Coordenadas destino -->
+        <TextView
+            android:id="@+id/txtDestinoCoords"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Coordenadas destino:"
+            android:textStyle="bold"
+            android:layout_marginTop="12dp" />
+
+        <!-- Distancia restante -->
+        <TextView
+            android:id="@+id/txtDistancia"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Distancia restante:"
+            android:textStyle="bold"
+            android:layout_marginTop="12dp" />
+
+        <!-- Estado transporte -->
+        <TextView
+            android:id="@+id/txtEstado"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Estado del transporte:"
+            android:textStyle="bold"
+            android:layout_marginTop="8dp" />
+
+        <!-- Botón GPS -->
+        <Button
+            android:id="@+id/btnUbicacion"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Obtener ubicación del transporte"
+            android:layout_marginTop="20dp" />
+
+        <!-- Latitud actual -->
+        <TextView
+            android:id="@+id/txtLatitud"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Latitud actual:"
+            android:layout_marginTop="16dp" />
+
+        <!-- Longitud actual -->
+        <TextView
+            android:id="@+id/txtLongitud"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Longitud actual:"
+            android:layout_marginTop="8dp" />
+
+        <!-- Dirección actual -->
+        <TextView
+            android:id="@+id/txtDireccion"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Dirección actual:"
+            android:layout_marginTop="8dp" />
+
+        <!-- Recorrido -->
+        <TextView
+            android:id="@+id/txtRecorrido"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Recorrido del transporte:"
+            android:textStyle="bold"
+            android:layout_marginTop="20dp" />
+
+        <!-- Botón guardar -->
         <Button
             android:id="@+id/btnGuardarEntrega"
             android:layout_width="match_parent"
@@ -46,4 +135,5 @@
             android:layout_marginTop="20dp" />
 
     </LinearLayout>
+
 </ScrollView>

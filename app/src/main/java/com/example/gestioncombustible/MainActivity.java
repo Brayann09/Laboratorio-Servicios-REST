@@ -28,7 +28,7 @@ public class MainActivity extends AppCompatActivity {
     private LinearLayout btnGerente;
     private LinearLayout btnEstacionServicio;
 
-    // NUEVO BOTON REST
+    // BOTON REST
     private LinearLayout btnRest;
 
     @Override
